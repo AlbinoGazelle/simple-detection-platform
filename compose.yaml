@@ -3,6 +3,7 @@ services:
     image: postgres
     hostname: postgres
     volumes:
+      - './db/init.sql:/docker-entrypoint-initdb.d/init.sql'
       - './data/db:/var/lib/postgresql/data'
     environment:
       - POSTGRES_DB=postgres

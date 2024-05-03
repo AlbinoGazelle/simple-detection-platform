@@ -1,0 +1,1 @@
+create table detections(id serial primary key, name VARCHAR(64), logic VARCHAR(1000), tool VARCHAR(64), description VARCHAR(300), status VARCHAR(64))
