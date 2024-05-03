@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres
+    hostname: postgres
+    volumes:
+      - './data/db:/var/lib/postgresql/data'
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - PGDATA=var/lib/postgres/data/pgdata
+  web:
+    build: .
+    ports:
+      - "8501:8501"
+    depends_on:
+      - db

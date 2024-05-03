@@ -1,3 +1,11 @@
+# Streamlit config
+*.streamlit/*
+
+# Application logs
+*.log
+# VSCode Workspace
+*.code-workspace
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
