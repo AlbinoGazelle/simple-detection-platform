@@ -27,11 +27,15 @@ with st.sidebar:
     tools = st.selectbox('Platform Selection',st.session_state["selected_tools"])
     if "Splunk" in st.session_state["selected_tools"]:
         searches = get_alerts(st.secrets['splunk']['username'], st.secrets['splunk']['password'], st.secrets['splunk']['base_url'])
-        st.write(searches)
     # Get all detections where the tool is equal to the sidebar selected tool
     sql = """SELECT * FROM detections WHERE tool=%s;"""
     database_cursor.execute(sql, (tools,))
     df = pd.DataFrame(database_cursor.fetchall(), columns=[desc[0] for desc in database_cursor.description])
-
 st.write(df)
+st.write(pd.DataFrame(searches))
+st.write(pd.concat([pd.DataFrame(searches), df]))
+
+
+
+#st.write(df)
 
