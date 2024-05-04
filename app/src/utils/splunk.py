@@ -74,4 +74,16 @@ def get_alerts(username: str, password: str, url: str):
     response = response.json()
     searches = response["entry"]
     rootLogger.info('Getting all alerts in Splunk')
-    return searches
+    cleaned_alerts = []
+    for alerts in searches:
+        alerts = {key: alerts[key] for key in alerts if key in ['name', 'content','author']}
+        alerts['content'] = {key: alerts['content'][key] for key in alerts['content'] if key in ['search', 'description']}
+        alerts['name'] = alerts['name']
+        alerts['logic'] = alerts['content']['search']
+        alerts['tool'] = 'Splunk - Manually Deployed'
+        alerts['description'] = alerts['content']['description']
+        del alerts['content']
+        del alerts['name']
+        del alerts['author']
+        cleaned_alerts.append(alerts)
+    return cleaned_alerts 
